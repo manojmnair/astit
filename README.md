@@ -1,7 +1,5 @@
-![](media/header.png)
-
 > [!NOTE]  
-> This version of the demo features a backend canister built in Rust. There is also a [TypeScript version](https://github.com/kristoferlund/ic-siwe-react-demo-ts) built using [Azle](https://github.com/demergent-labs/azle).
+> This is bootstrapped using SIWE template available at "https://github.com/kristoferlund/ic-siwe-react-demo-rust"
 
 ✅ Sign in with Ethereum to interact with smart contracts (canisters) on the [Internet Computer](https://internetcomputer.org) (IC)!
 
@@ -10,23 +8,18 @@
 ✅ Access the IC capabilities from Ethereum dapp frontends, create cross-chain dapps! Some of the features IC provide are:
 
 - Native integration with BTC and ETH
-- Twin tokens (ckBTC, ckETH)
-- Fast finality
-- Low transaction fees
-- HTTPS outcalls
-- Store large amounts of data cheaply
-- etc
 
-This React demo application and template demonstrates how to login Ethereum users into an IC canister using the [ic-use-siwe-identity](https://github.com/kristoferlund/ic-siwe/tree/main/packages/ic-use-siwe-identity) hook and [ic-siwe-provider](https://github.com/kristoferlund/ic-siwe/tree/main/packages/ic_siwe_provider) canister.
 
-The goal of the [ic-siwe](https://github.com/kristoferlund/ic-siwe) project is to enhance the interoperability between Ethereum and the Internet Computer platform, enabling developers to build applications that leverage the strengths of both platforms.
+- This application uses creating icrc1 tokens and http outcalls.
+- Work is going on for creating icrc7 token creation using http outcalls and intercanister calls.
 
-## 👀 Try the live demo: https://shtr2-2iaaa-aaaal-qckva-cai.icp0.io
+
+## Try the live demo: https://shtr2-2iaaa-aaaal-qckva-cai.icp0.io
 
 ## Key features
 
-The demo is buit using [Vite](https://vitejs.dev/) to provide a fast development experience. It also uses:
-
+The demo uses:
+- Rust for smart contract
 - TypeScript
 - TailwindCSS
 - Wagmi/Viem Ethereum libraries
@@ -34,13 +27,13 @@ The demo is buit using [Vite](https://vitejs.dev/) to provide a fast development
 
 ## Table of contents
 
-- [👀 Try the live demo: https://shtr2-2iaaa-aaaal-qckva-cai.icp0.io](#-try-the-live-demo-httpsshtr2-2iaaa-aaaal-qckva-caiicp0io)
 - [Key features](#key-features)
 - [Table of contents](#table-of-contents)
 - [App components](#app-components)
   - [Backend](#backend)
   - [Frontend](#frontend)
   - [IC SIWE Provider](#ic-siwe-provider)
+  - [Rust canister](#ic-siwe-provider)
 - [How it works](#how-it-works)
 - [Run locally](#run-locally)
 - [Details](#details)
@@ -50,21 +43,13 @@ The demo is buit using [Vite](https://vitejs.dev/) to provide a fast development
     - [SiweIdentityProvider](#siweidentityprovider)
     - [AuthGuard](#authguard)
     - [useSiweIdentity](#usesiweidentity)
-- [Updates](#updates)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## App components
 
-If you are new to IC, please read the [Internet Computer Basics](https://internetcomputer.org/basics) before proceeding.
-
-For a detailed description of the SIWE concepts, see the [SIWE specification, EIP-4361](https://eips.ethereum.org/EIPS/eip-4361).
-
-This app consists of three main components:
-
 ### Backend
 
-The backend is a Rust based canister that, for demonstration purposes, implements some basic functionality for managing user profiles.
+The backend is Rust based canisters which implements icrc1 token creation (Bondtoken and GoldToken), http outcalls and some basic functionality for managing user profiles.
 
 ### Frontend
 
@@ -83,8 +68,10 @@ This is the high-level flow between the app components when a user logs in:
 3. The application sends the signed SIWE message to the `ic_siwe_provider` canister to login the user. The canister verifies the signature and creates an identity for the user.
 4. The application retrieves the identity from the `ic_siwe_provider` canister.
 5. The application can now use the identity to make authenticated calls to the app canister.
+6. Two icrc1 token were created - Bondtoken - ASTb and Goldtoken - ASTg
+7. http outcall procedures were used to fetch bond rate, gold rate and btc price.
+8. These values along with intercanister calls will be made use in creating icrc7 tokens to create RWAs
 
-![Sign in with Ethereum - Login flow](/media/flow.png)
 
 ## Run locally
 
@@ -101,44 +88,110 @@ The `ic_siwe_provider` canister is pre-built and added to the project as a depen
 
 ```json
 {
-  "canisters": {
     "ic_siwe_provider": {
+      "candid": "ic_siwe_provider.did",
       "type": "custom",
-      "candid": "https://github.com/kristoferlund/ic-siwe/releases/download/v0.0.5/ic_siwe_provider.did",
-      "wasm": "https://github.com/kristoferlund/ic-siwe/releases/download/v0.0.5/ic_siwe_provider.wasm.gz"
+      "wasm": "ic_siwe_provider.wasm.gz"
     },
-    ...
-  },
-  ...
-}
 ```
 
 Its behavior is configured and passed as an argument to the canister `init` function. Below is an example of how to configure the canister using the `dfx` command line tool in the project [Makefile](/Makefile):
 
 ```makefile
-dfx deploy ic_siwe_provider --argument "( \
-    record { \
-        domain = \"127.0.0.1\"; \
-        uri = \"http://127.0.0.1:5173\"; \
-        salt = \"salt\"; \
-        chain_id = opt 1; \
-        scheme = opt \"http\"; \
-        statement = opt \"Login to the app\"; \
-        sign_in_expires_in = opt 300000000000; /* 5 minutes */ \
-        session_expires_in = opt 604800000000000; /* 1 week */ \
-        targets = opt vec { \
-            \"$$(dfx canister id ic_siwe_provider)\"; \
-            \"$$(dfx canister id backend)\"; \
-        }; \
-    } \
-)"
+deploy-provider:
+	dfx deploy ic_siwe_provider --argument "( \
+	    record { \
+	        domain = \"127.0.0.1\"; \
+	        uri = \"http://127.0.0.1:5173\"; \
+	        salt = \"salt\"; \
+	        chain_id = opt 11155111; \
+	        scheme = opt \"http\"; \
+	        statement = opt \"Login to the SIWE/IC\"; \
+	        sign_in_expires_in = opt 300000000000; /* 5 minutes */ \
+	        session_expires_in = opt 604800000000000; /* 1 week */ \
+	        targets = opt vec { \
+	            \"$$(dfx canister id ic_siwe_provider)\"; \
+	            \"$$(dfx canister id backend)\"; \
+	        }; \
+	    } \
+	)"
+```
+### Bondtoken
+
+The `bondtoken` canister is pre-built and added to the project as a dependency in the [dfx.json](/dfx.json) file.
+
+```json
+    "bondtoken": {
+      "candid": "icrc1_ledger.did",
+      "type": "custom",
+      "wasm": "icrc1-ledger.wasm.gz"
+    },
 ```
 
-For more information about the configuration options, see the [ic-siwe-provider](https://github.com/kristoferlund/ic-siwe/tree/main/packages/ic_siwe_provider) documentation.
+Its behavior is configured and passed as an argument to the canister `init` function. Below is an example of how to configure the canister using the `dfx` command line tool in the project [Makefile](/Makefile):
 
+```makefile
+deploy-bondtoken:
+	dfx deploy bondtoken --argument "(variant { Init = \
+		record { \
+			token_symbol = \"ASTb\"; \
+			token_name = \"Astit Bond Token\"; \
+			token_decimals = 2; \
+			minting_account = record { owner = principal \"$$(dfx identity get-principal)\" }; \
+			transfer_fee = 10_000; \
+			metadata = vec {}; \
+			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 10_000; }; }; \
+			archive_options = record { \
+				num_blocks_to_archive = 1000; \
+				trigger_threshold = 2000; \
+				controller_id = principal \"$$(dfx identity get-principal)\"; \
+			}; \
+		} \
+	})"
+```
+
+### Goldtoken
+
+The `goldtoken` canister is pre-built and added to the project as a dependency in the [dfx.json](/dfx.json) file.
+
+```json
+    "goldtoken": {
+      "candid": "icrc1_ledger.did",
+      "type": "custom",
+      "wasm": "icrc1-ledger.wasm.gz"
+    },
+```
+
+Its behavior is configured and passed as an argument to the canister `init` function. Below is an example of how to configure the canister using the `dfx` command line tool in the project [Makefile](/Makefile):
+
+```makefile
+deploy-goldtoken:
+	dfx deploy goldtoken --argument "(variant { Init = \
+		record { \
+			token_symbol = \"ASTg\"; \
+			token_name = \"Astit Gold Token\"; \
+			token_decimals = 4; \
+			minting_account = record { owner = principal \"$$(dfx identity get-principal)\" }; \
+			transfer_fee = 10_000; \
+			metadata = vec {}; \
+			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 100; }; }; \
+			archive_options = record { \
+				num_blocks_to_archive = 1000; \
+				trigger_threshold = 2000; \
+				controller_id = principal \"$$(dfx identity get-principal)\"; \
+			}; \
+		} \
+	})"
+```
 ### Backend
 
-The backend is a Rust based canister that, for demonstration purposes, implements some basic functionality for managing user profiles. It is also given an init argument - the `ic_siwe_provider` canister id - to be able to verify the identity of the user.
+#### [Bondrate](src/backend/src/treasury_rate.rs)
+#### [Goldrate](src/backend/src/gold_rate.rs)
+#### [BTCrate](src/backend/src/btc_rate.rs)
+
+The canisters use http outcalls to get the data
+
+The backend is Rust based canister that, for demonstration purposes, implements some basic functionality for managing user profiles. It is also given an init argument - the `ic_siwe_provider` canister id - to be able to verify the identity of the user.
 
 ```makefile
 dfx deploy backend --argument "$$(dfx canister id ic_siwe_provider)"
@@ -196,14 +249,23 @@ function LoginButton() {
 }
 ```
 
-## Updates
-
-See the [CHANGELOG](CHANGELOG.md) for details on updates.
-
-## Contributing
-
-Contributions are welcome. Please submit your pull requests or open issues to propose changes or report bugs.
-
 ## License
 
 This project is licensed under the MIT License. See the LICENSE file for more details.
+
+## Scrrenshots
+
+### Login page
+![](media/login.png)
+
+### Logged page
+![](media/logged.png)
+
+### Dashboard page
+![](media/dashboard.png)
+
+### Bondtoken page
+![](media/bondtoken.png)
+
+### Logout page
+![](media/logout.png)

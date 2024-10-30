@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { backend } from '../../../declarations/backend';
 import { bondtoken } from '../../../declarations/bondtoken';
-export default function BondToken() {
+export default function Holdings() {
     const [tokenSymbol, setTokenSymbol] = useState<string | undefined>('');
     const [tokenName, setTokenName] = useState<string | undefined>('');
     const [totalSupply, setTotalSupply] = useState<number | undefined>();
@@ -46,7 +46,7 @@ export default function BondToken() {
 
     const fetchTreasyRate = async () => {
         try {
-            //setLoading(true);
+
             const treasuryRateData = await backend.get_us_treasury_rate();
 
             const treasuryRate_Data = JSON.parse(treasuryRateData);

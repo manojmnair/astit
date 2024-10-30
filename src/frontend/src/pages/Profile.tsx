@@ -1,6 +1,4 @@
-//import { useState } from 'react';
-// import { useEffect, useState } from 'react';
-// import { backend } from '../../../declarations/backend';
+
 import AllProfiles from "../components/profile/AllProfiles";
 import EditProfile from "../components/profile/EditProfile";
 import { NoProfileMessage } from "../components/profile/NoProfileMessage";

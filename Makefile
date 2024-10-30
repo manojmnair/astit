@@ -28,10 +28,11 @@ deploy-bondtoken:
 		record { \
 			token_symbol = \"ASTb\"; \
 			token_name = \"Astit Bond Token\"; \
+			token_decimals = 2; \
 			minting_account = record { owner = principal \"$$(dfx identity get-principal)\" }; \
 			transfer_fee = 10_000; \
 			metadata = vec {}; \
-			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 10_000_000_000; }; }; \
+			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 10_000; }; }; \
 			archive_options = record { \
 				num_blocks_to_archive = 1000; \
 				trigger_threshold = 2000; \
@@ -44,10 +45,11 @@ deploy-goldtoken:
 		record { \
 			token_symbol = \"ASTg\"; \
 			token_name = \"Astit Gold Token\"; \
+			token_decimals = 4; \
 			minting_account = record { owner = principal \"$$(dfx identity get-principal)\" }; \
 			transfer_fee = 10_000; \
 			metadata = vec {}; \
-			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 10_000_000_000; }; }; \
+			initial_balances = vec { record { record { owner = principal \"$$(dfx identity get-principal)\"; }; 100; }; }; \
 			archive_options = record { \
 				num_blocks_to_archive = 1000; \
 				trigger_threshold = 2000; \

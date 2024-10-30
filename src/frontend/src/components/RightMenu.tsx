@@ -8,83 +8,81 @@ export default function RightMenu() {
             {/* <Profile /> */}
             <div className="p-4  rounded-lg shadow-md text-sm  flex flex-col gap-2 bg-zinc-600">
                 <Link
-                    to="/"
+                    to="/bondtoken"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/posts.png" alt="" width={20} height={20} />
-                    <span>My Posts</span>
+                    <span>Bond Tokens - ASTb</span>
                 </Link>
-
                 <Link
-                    to="/"
-                    className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
-                >
-                    <img src="/activity.png" alt="" width={20} height={20} />
-                    <span>Activity</span>
-                </Link>
-
-                <Link
-                    to="/"
+                    to="/goldtoken"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/market.png" alt="" width={20} height={20} />
-                    <span>Marketplace</span>
+                    <span>Gold Token - ASTg</span>
+                </Link>
+                <Link
+                    to="comingsoon"
+                    className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
+                >
+                    <img src="/activity.png" alt="" width={20} height={20} />
+                    <span>Gold backed - GLDa</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="comingsoon"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/events.png" alt="" width={20} height={20} />
-                    <span>Events</span>
+                    <span>Bond backed - BNDa</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="comingsoon"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/albums.png" alt="" width={20} height={20} />
-                    <span>Albums</span>
+                    <span>BTC backed - BTCa</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/videos.png" alt="" width={20} height={20} />
-                    <span>Videos</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/news.png" alt="" width={20} height={20} />
-                    <span>News</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/courses.png" alt="" width={20} height={20} />
-                    <span>Courses</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/lists.png" alt="" width={20} height={20} />
-                    <span>Lists</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/settings.png" alt="" width={20} height={20} />
-                    <span>Settings</span>
+                    <span>-</span>
                 </Link>
             </div>
         </div>

@@ -6,9 +6,6 @@ html {
   @apply bg-zinc-700 text-zinc-200 font-sans;
 }
 
-/* a {
-  @apply underline text-cyan-600;
-} */
 
 [id^="headlessui-dialog-title-"] {
   @apply text-2xl font-bold;

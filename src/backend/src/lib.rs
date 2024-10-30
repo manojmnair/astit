@@ -1,7 +1,6 @@
 mod declarations;
 mod service;
 mod user_profile;
-mod counter;
 mod treasury_rate;
 mod gold_rate;
 mod btc_rate;

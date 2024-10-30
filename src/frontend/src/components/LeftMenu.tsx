@@ -33,83 +33,83 @@ export default function LeftMenu() {
             </div>
             <div className="p-4  rounded-lg shadow-md text-sm  flex flex-col gap-2 bg-zinc-600">
                 <Link
-                    to="/"
+                    to="/holdings"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/posts.png" alt="" width={20} height={20} />
-                    <span>My Posts</span>
+                    <span>My Investments</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="/comingsoon"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/activity.png" alt="" width={20} height={20} />
-                    <span>Activity</span>
+                    <span>My trades</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/market.png" alt="" width={20} height={20} />
-                    <span>Marketplace</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/events.png" alt="" width={20} height={20} />
-                    <span>Events</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/albums.png" alt="" width={20} height={20} />
-                    <span>Albums</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/videos.png" alt="" width={20} height={20} />
-                    <span>Videos</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/news.png" alt="" width={20} height={20} />
-                    <span>News</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2 rounded-lg hover:bg-zinc-500"
                 >
                     <img src="/courses.png" alt="" width={20} height={20} />
-                    <span>Courses</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/lists.png" alt="" width={20} height={20} />
-                    <span>Lists</span>
+                    <span>-</span>
                 </Link>
 
                 <Link
-                    to="/"
+                    to="#"
                     className="flex items-center gap-4 p-2  hover:bg-zinc-500"
                 >
                     <img src="/settings.png" alt="" width={20} height={20} />
-                    <span>Settings</span>
+                    <span>-</span>
                 </Link>
             </div>
         </div>
