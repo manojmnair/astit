@@ -14,7 +14,6 @@
 - Work is going on for creating icrc7 token creation using http outcalls and intercanister calls.
 
 
-## Try the live demo: https://shtr2-2iaaa-aaaal-qckva-cai.icp0.io
 
 ## Key features
 
